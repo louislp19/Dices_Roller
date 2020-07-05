@@ -1,15 +1,13 @@
 import pygame
 import random
+pygame.init()
 
 # Set game window
-
 res = (300,200)
 win = pygame.display.set_mode(res)
-pygame.display.set_caption("First Game")
-
+pygame.display.set_caption("Roll the dices")
 
 # Set font
-pygame.font.init()
 font = pygame.font.SysFont('Arial', 20, True, False)
 text_roll = font.render('Roll', True, (0,0,0))
 
@@ -22,6 +20,8 @@ number1 = 0
 number2 = 0
 click = pygame.mouse.get_pressed()
 
+# Sound effect
+rollSound = pygame.mixer.Sound('Assets/sound_dices.wav')
 
 def roll_dices():
 	global number1
@@ -36,7 +36,7 @@ def redrawGameWindow():
 	text = font.render('The result is ' + str((number1 + 1) + (number2 +1 )), True, (0, 0, 0))
 	win.blit(text_roll, (150-50/2,50))
 	win.blit(dices[number1], (100,100))
-	win.blit(dices[number2], (150,100))
+	win.blit(dices[number2], (165,100))
 	win.blit(text, (80,150))
 	
 	pygame.display.update()
@@ -44,7 +44,6 @@ def redrawGameWindow():
 
 #Main Loop
 run = True
-
 
 while run:
 
@@ -54,6 +53,7 @@ while run:
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			if mouse[0] >= 150 - 50/2 and mouse[0] <= 150 - 50/2 + 50 and mouse[1] >= 50 and mouse[1] <= 100 :
+				rollSound.play()
 				roll_dices()
 				
 				
