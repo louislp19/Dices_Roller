@@ -1,15 +1,16 @@
-import pygame
 import random
+import pygame
+
 pygame.init()
 
 # Set game window
-res = (300,200)
+res = (300, 200)
 win = pygame.display.set_mode(res)
 pygame.display.set_caption("Roll the dices")
 
 # Set font
 font = pygame.font.SysFont('Arial', 20, True, False)
-text_roll = font.render('Roll', True, (0,0,0))
+text_roll = font.render('Roll', True, (0, 0, 0))
 
 # Set images
 dices = [pygame.image.load('Assets/dice_1.png'), pygame.image.load('Assets/dice_2.png'), pygame.image.load('Assets/dice_3.png'), pygame.image.load('Assets/dice_4.png'), pygame.image.load('Assets/dice_5.png'), pygame.image.load('Assets/dice_6.png')]
@@ -26,21 +27,19 @@ rollSound = pygame.mixer.Sound('Assets/sound_dices.wav')
 def roll_dices():
 	global number1
 	global number2
-	number1 = random.randint(0,5)
-	number2 = random.randint(0,5)
-	
+	number1 = random.randint(0, 5)
+	number2 = random.randint(0, 5)
 
 def redrawGameWindow():
-	win.blit(bg, (0,0))
-	pygame.draw.rect(win, btn_color,(150 - 50/2, 50, 50, 20))
-	text = font.render('The result is ' + str((number1 + 1) + (number2 +1 )), True, (0, 0, 0))
-	win.blit(text_roll, (150-50/2,50))
-	win.blit(dices[number1], (100,100))
-	win.blit(dices[number2], (165,100))
-	win.blit(text, (80,150))
+	win.blit(bg, (0, 0))
+	pygame.draw.rect(win, btn_color, (150 - 50/2, 50, 50, 20))
+	text = font.render('The result is ' + str((number1 + 1) + (number2 +1)), True, (0, 0, 0))
+	win.blit(text_roll, (150-50/2, 50))
+	win.blit(dices[number1], (100, 100))
+	win.blit(dices[number2], (165, 100))
+	win.blit(text, (80, 150))
 	
 	pygame.display.update()
-
 
 #Main Loop
 run = True
@@ -52,18 +51,17 @@ while run:
 			run = False
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
-			if mouse[0] >= 150 - 50/2 and mouse[0] <= 150 - 50/2 + 50 and mouse[1] >= 50 and mouse[1] <= 100 :
+			if mouse[0] >= 150 - 50/2 and mouse[0] <= 150 - 50/2 + 50 and mouse[1] >= 50 and mouse[1] <= 100:
 				rollSound.play()
 				roll_dices()
-				
-				
 
 	mouse = pygame.mouse.get_pos()
-	
-	if mouse[0] >= 150 - 50/2 and mouse[0] <= 150 - 50/2 + 50 and mouse[1] >= 50 and mouse[1] <= 100 :
-		btn_color = (255,0,0)
+
+
+	if mouse[0] >= 150 - 50/2 and mouse[0] <= 150 - 50/2 + 50 and mouse[1] >= 50 and mouse[1] <= 100:
+		btn_color = (255, 0, 0)
 	else:
-		btn_color = (0,255,0)
+		btn_color = (0, 255, 0)
 
 	pygame.display.update()
 	redrawGameWindow()
